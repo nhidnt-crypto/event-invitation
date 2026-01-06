@@ -1,226 +1,101 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lễ Giỗ 1 Năm</title>
+<!-- ===== RSVP MODAL (NO NEW TAB) ===== -->
+<style>
+  .rsvp-modal{
+    position:fixed; inset:0;
+    background:rgba(0,0,0,.55);
+    display:none; align-items:center; justify-content:center;
+    padding:18px; z-index:9999;
+  }
+  .rsvp-modal.is-open{ display:flex; }
+  .rsvp-panel{
+    width:min(860px, 100%);
+    background:#f7f3ee;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 18px 50px rgba(0,0,0,.25);
+    border:1px solid rgba(90,60,40,.25);
+  }
+  .rsvp-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 14px;
+    background:linear-gradient(135deg,#3a2a1f 0%, #5b3e2b 60%, #8b6a4f 100%);
+    color:#fff;
+    font-family:Georgia, "Times New Roman", serif;
+  }
+  .rsvp-head .ttl{font-weight:700; letter-spacing:.06em; font-size:13px;}
+  .rsvp-close{
+    background:transparent; border:0; color:#fff;
+    font-size:20px; cursor:pointer; line-height:1;
+    padding:6px 10px; border-radius:10px;
+  }
+  .rsvp-close:hover{ background:rgba(255,255,255,.12); }
+  .rsvp-body{ background:#fff; }
+  .rsvp-iframe{
+    width:100%; height:min(78vh, 720px);
+    border:0; display:block;
+  }
+</style>
 
-  <!-- Meta chia sẻ -->
-  <meta property="og:title" content="LỄ GIỖ 1 NĂM">
-  <meta property="og:description" content="Trân trọng kính mời tham dự Lễ Giỗ 1 Năm • 12.01.2026 • Điện Biên Phủ, TP.HCM">
-  <meta property="og:type" content="website">
+<div class="btnRow">
+  <a class="btn attend" href="#" id="btnAttend">THAM DỰ</a>
+  <a class="btn decline" href="#" id="btnDecline">KHÔNG THAM DỰ</a>
+</div>
 
-  <style>
-    :root{
-      --wood-dark:#3a2a1f;
-      --wood:#5b3e2b;
-      --wood-light:#8b6a4f;
-      --cream:#f7f3ee;
-      --line:rgba(90,60,40,.25);
-      --text:#2b1d14;
-    }
-
-    *{box-sizing:border-box}
-
-    body{
-      margin:0;
-      font-family:"Georgia","Times New Roman",serif;
-      color:var(--text);
-      background:
-        radial-gradient(900px 420px at 10% 10%, rgba(139,106,79,.15), transparent 60%),
-        radial-gradient(900px 420px at 90% 90%, rgba(58,42,31,.18), transparent 62%),
-        linear-gradient(180deg,#efe7dd 0%, #f9f6f2 100%);
-    }
-
-    .wrap{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:24px;
-    }
-
-    .card{
-      max-width:680px;
-      width:100%;
-      background:var(--cream);
-      border:1px solid var(--line);
-      border-radius:18px;
-      box-shadow:0 18px 40px rgba(0,0,0,.12);
-      padding:36px 28px 40px;
-      text-align:center;
-    }
-
-    .divider{
-      width:72px;
-      height:2px;
-      background:linear-gradient(90deg,transparent,var(--wood),transparent);
-      margin:18px auto;
-    }
-
-    .title-small{
-      letter-spacing:.18em;
-      font-size:13px;
-      color:var(--wood-light);
-    }
-
-    h1{
-      margin:14px 0 10px;
-      font-size:34px;
-      font-weight:700;
-      color:var(--wood-dark);
-    }
-
-    .subtitle{
-      font-size:16px;
-      color:#5a4637;
-    }
-
-    .info{
-      margin-top:28px;
-      border-top:1px solid var(--line);
-      border-bottom:1px solid var(--line);
-      padding:22px 10px;
-    }
-
-    .info-row{ margin:14px 0; }
-
-    .label{
-      font-size:13px;
-      letter-spacing:.12em;
-      color:#6b5442;
-    }
-
-    .value{
-      margin-top:6px;
-      font-size:18px;
-      font-weight:600;
-      color:#3b2a1f;
-    }
-
-    .note{
-      margin-top:22px;
-      font-size:15px;
-      color:#4a382c;
-      line-height:1.7;
-    }
-
-    /* RSVP buttons */
-    .rsvpWrap{ margin-top:26px; }
-    .btnRow{
-      display:flex;
-      gap:10px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-top:12px;
-    }
-    a.btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:13px 18px;
-      border-radius:12px;
-      text-decoration:none;
-      font-size:15px;
-      font-weight:700;
-      letter-spacing:.04em;
-      box-shadow:0 8px 18px rgba(0,0,0,.18);
-      transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
-      user-select:none;
-    }
-    a.btn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 10px 22px rgba(0,0,0,.22);
-      opacity:.98;
-    }
-    a.btn:active{ transform:translateY(0px); }
-
-    .btn.attend{ background:var(--wood); color:#fff; }
-    .btn.decline{
-      background:transparent;
-      color:var(--wood-dark);
-      border:1px solid rgba(90,60,40,.35);
-      box-shadow:none;
-    }
-
-    .hint{
-      margin-top:10px;
-      font-size:13px;
-      color:#6b5442;
-      line-height:1.6;
-    }
-
-    .footer{
-      margin-top:22px;
-      font-size:13px;
-      color:#7a6757;
-    }
-
-    @media (max-width:520px){
-      h1{font-size:28px}
-      .card{padding:28px 20px 32px}
-    }
-  </style>
-</head>
-
-<body>
-  <div class="wrap">
-    <div class="card">
-      <div class="title-small">TRÂN TRỌNG KÍNH MỜI</div>
-
-      <h1>LỄ GIỖ 1 NĂM</h1>
-
-      <div class="subtitle">Tưởng niệm &amp; tri ân</div>
-
-      <div class="divider"></div>
-
-      <div class="info">
-        <div class="info-row">
-          <div class="label">THỜI GIAN</div>
-          <div class="value">Ngày 12 tháng 01 năm 2026</div>
-        </div>
-
-        <div class="info-row">
-          <div class="label">ĐỊA ĐIỂM</div>
-          <div class="value">Điện Biên Phủ, TP. Hồ Chí Minh</div>
-        </div>
-      </div>
-
-      <div class="note">
-        Kính mời quý thân bằng quyến thuộc, bằng hữu<br/>
-        dành chút thời gian đến tham dự lễ giỗ,<br/>
-        thắp nén hương lòng tưởng nhớ.
-      </div>
-
-      <!-- RSVP -->
-      <div class="rsvpWrap">
-        <div class="label">XÁC NHẬN THAM DỰ</div>
-
-        <div class="btnRow">
-          <!-- Cả 2 nút đều đưa tới form; trong form bạn chọn Tham dự / Không tham dự -->
-          <a class="btn attend"
-             href="https://docs.google.com/forms/d/e/1FAIpQLSeAbEEMP7dOkfBvpq9N7Kt3Z7NTFxxC3UYFzN2UIViH9GNDXA/viewform?usp=pp_url"
-             target="_blank" rel="noopener">
-            THAM DỰ
-          </a>
-
-          <a class="btn decline"
-             href="https://docs.google.com/forms/d/e/1FAIpQLSeAbEEMP7dOkfBvpq9N7Kt3Z7NTFxxC3UYFzN2UIViH9GNDXA/viewform?usp=pp_url"
-             target="_blank" rel="noopener">
-            KHÔNG THAM DỰ
-          </a>
-        </div>
-
-        <div class="hint">
-          Vui lòng điền form để gia đình tiện sắp xếp.<br/>
-          Thông tin xác nhận sẽ được ghi nhận tự động.
-        </div>
-      </div>
-
-      <div class="footer">
-        Sự hiện diện của quý vị là niềm an ủi lớn lao cho gia đình
-      </div>
+<div class="rsvp-modal" id="rsvpModal" aria-hidden="true">
+  <div class="rsvp-panel" role="dialog" aria-modal="true" aria-label="Xác nhận tham dự">
+    <div class="rsvp-head">
+      <div class="ttl">XÁC NHẬN THAM DỰ • LỄ GIỖ 1 NĂM</div>
+      <button class="rsvp-close" id="rsvpClose" aria-label="Đóng">✕</button>
+    </div>
+    <div class="rsvp-body">
+      <!-- IFRAME: mở form ngay trong trang, không cần chuyển tab -->
+      <iframe
+        id="rsvpFrame"
+        class="rsvp-iframe"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://docs.google.com/forms/d/e/1FAIpQLSeAbEEMP7dOkfBvpq9N7Kt3Z7NTFxxC3UYFzN2UIViH9GNDXA/viewform?embedded=true">
+      </iframe>
     </div>
   </div>
-</body>
-</html>
+</div>
+
+<script>
+  // ✅ Bạn có thể dùng "prefill links" để tự chọn sẵn Tham dự / Không tham dự
+  // Hiện tại mình để mặc định mở embed form.
+  // Khi bạn gửi cho mình 2 prefill link (Attend/Decline), mình sẽ thay vào 2 biến dưới đây.
+  const EMBED_DEFAULT = "https://docs.google.com/forms/d/e/1FAIpQLSeAbEEMP7dOkfBvpq9N7Kt3Z7NTFxxC3UYFzN2UIViH9GNDXA/viewform?embedded=true";
+
+  // TODO: Dán prefill links vào đây (loại embedded=true hoặc pp_url đều được, miễn chạy):
+  const PREFILL_ATTEND  = ""; // ví dụ: https://docs.google.com/forms/d/e/.../viewform?usp=pp_url&entry.123=Tham%20dự
+  const PREFILL_DECLINE = "";
+
+  const modal = document.getElementById("rsvpModal");
+  const frame = document.getElementById("rsvpFrame");
+
+  function openModal(url){
+    frame.src = url || EMBED_DEFAULT;
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden","false");
+    document.body.style.overflow = "hidden";
+  }
+  function closeModal(){
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden","true");
+    document.body.style.overflow = "";
+  }
+
+  document.getElementById("btnAttend").addEventListener("click", (e)=>{
+    e.preventDefault();
+    openModal(PREFILL_ATTEND || EMBED_DEFAULT);
+  });
+
+  document.getElementById("btnDecline").addEventListener("click", (e)=>{
+    e.preventDefault();
+    openModal(PREFILL_DECLINE || EMBED_DEFAULT);
+  });
+
+  document.getElementById("rsvpClose").addEventListener("click", closeModal);
+  modal.addEventListener("click", (e)=>{ if(e.target === modal) closeModal(); });
+  document.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeModal(); });
+</script>
