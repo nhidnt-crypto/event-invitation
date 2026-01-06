@@ -24,7 +24,7 @@
 
     body{
       margin:0;
-      font-family: "Georgia", "Times New Roman", serif;
+      font-family:"Georgia","Times New Roman",serif;
       color:var(--text);
       background:
         radial-gradient(900px 420px at 10% 10%, rgba(139,106,79,.15), transparent 60%),
@@ -83,9 +83,7 @@
       padding:22px 10px;
     }
 
-    .info-row{
-      margin:14px 0;
-    }
+    .info-row{ margin:14px 0; }
 
     .label{
       font-size:13px;
@@ -101,14 +99,59 @@
     }
 
     .note{
-      margin-top:26px;
+      margin-top:22px;
       font-size:15px;
       color:#4a382c;
       line-height:1.7;
     }
 
+    /* RSVP buttons */
+    .rsvpWrap{ margin-top:26px; }
+    .btnRow{
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+    a.btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:13px 18px;
+      border-radius:12px;
+      text-decoration:none;
+      font-size:15px;
+      font-weight:700;
+      letter-spacing:.04em;
+      box-shadow:0 8px 18px rgba(0,0,0,.18);
+      transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+      user-select:none;
+    }
+    a.btn:hover{
+      transform:translateY(-1px);
+      box-shadow:0 10px 22px rgba(0,0,0,.22);
+      opacity:.98;
+    }
+    a.btn:active{ transform:translateY(0px); }
+
+    .btn.attend{ background:var(--wood); color:#fff; }
+    .btn.decline{
+      background:transparent;
+      color:var(--wood-dark);
+      border:1px solid rgba(90,60,40,.35);
+      box-shadow:none;
+    }
+
+    .hint{
+      margin-top:10px;
+      font-size:13px;
+      color:#6b5442;
+      line-height:1.6;
+    }
+
     .footer{
-      margin-top:28px;
+      margin-top:22px;
       font-size:13px;
       color:#7a6757;
     }
@@ -127,9 +170,7 @@
 
       <h1>LỄ GIỖ 1 NĂM</h1>
 
-      <div class="subtitle">
-        Tưởng niệm & tri ân
-      </div>
+      <div class="subtitle">Tưởng niệm &amp; tri ân</div>
 
       <div class="divider"></div>
 
@@ -149,6 +190,31 @@
         Kính mời quý thân bằng quyến thuộc, bằng hữu<br/>
         dành chút thời gian đến tham dự lễ giỗ,<br/>
         thắp nén hương lòng tưởng nhớ.
+      </div>
+
+      <!-- RSVP -->
+      <div class="rsvpWrap">
+        <div class="label">XÁC NHẬN THAM DỰ</div>
+
+        <div class="btnRow">
+          <!-- Cả 2 nút đều đưa tới form; trong form bạn chọn Tham dự / Không tham dự -->
+          <a class="btn attend"
+             href="https://docs.google.com/forms/d/e/1FAIpQLSeAbEEMP7dOkfBvpq9N7Kt3Z7NTFxxC3UYFzN2UIViH9GNDXA/viewform?usp=pp_url"
+             target="_blank" rel="noopener">
+            THAM DỰ
+          </a>
+
+          <a class="btn decline"
+             href="https://docs.google.com/forms/d/e/1FAIpQLSeAbEEMP7dOkfBvpq9N7Kt3Z7NTFxxC3UYFzN2UIViH9GNDXA/viewform?usp=pp_url"
+             target="_blank" rel="noopener">
+            KHÔNG THAM DỰ
+          </a>
+        </div>
+
+        <div class="hint">
+          Vui lòng điền form để gia đình tiện sắp xếp.<br/>
+          Thông tin xác nhận sẽ được ghi nhận tự động.
+        </div>
       </div>
 
       <div class="footer">
