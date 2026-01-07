@@ -338,10 +338,11 @@
 
                   <!-- Placeholder khi chưa có ảnh -->
                   <div class="photo-placeholder">
-                    (Chưa có ảnh chân dung)<br/>
-                    Bạn dán link ảnh vào<br/>
-                    <strong>PHOTO_URL_HERE</strong>
+                       <strong>https://postimg.cc/gxqCgNvY</strong>
                   </div>
+<div class="person">
+              <div class="rank">Thiếu Tướng</div>
+              <div class="name">MAI XUÂN TẦN</div>
                 </div>
               </div>
             </div>
@@ -366,9 +367,7 @@
 
             <div class="divider"></div>
 
-            <div class="person">
-              <div class="rank">Thiếu Tướng</div>
-              <div class="name">MAI XUÂN TẦN</div>
+            
 
               <!-- Hình trang trí dưới tên (bạn đã dùng) -->
               <div class="person-img">
