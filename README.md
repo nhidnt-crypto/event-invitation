@@ -317,14 +317,15 @@
             </div>
           </div>
 
-          <div class="note">
+<div class="note">
   Sự hiện diện của quý vị là nguồn động viên lớn đối với gia đình.<br><br>
 
-  <span class="strong">Thay mặt gia đình:</span><br>
+  <span class="strong">Thay mặt gia đình,</span><br>
   Con trai: <span class="strong">Mai Xuân Đức</span><br>
   Con dâu: <span class="strong">Trần Phan Chung Thủy</span><br>
-  Cùng các con, cháu
+  Kính mời cùng các con, cháu.
 </div>
+
 
 
           <!-- RSVP -->
