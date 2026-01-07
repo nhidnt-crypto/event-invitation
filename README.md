@@ -1,1 +1,1 @@
-THƯ MỜI LỄ GIỖ 1 NĂM
+THƯ MỜI LỄ GIỖ ĐẦU
