@@ -1,11 +1,12 @@
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lễ Giỗ 1 Năm</title>
+  <title>Lễ Giỗ 1 Năm • Thiếu Tướng Mai Xuân Tần</title>
 
   <!-- Meta chia sẻ -->
-  <meta property="og:title" content="LỄ GIỖ 1 NĂM">
+  <meta property="og:title" content="LỄ GIỖ 1 NĂM • Thiếu Tướng Mai Xuân Tần">
   <meta property="og:description" content="Trân trọng kính mời tham dự Lễ Giỗ 1 Năm • 12.01.2026 • Điện Biên Phủ, TP.HCM">
   <meta property="og:type" content="website">
 
@@ -57,7 +58,7 @@
     }
 
     h1{
-      margin:14px 0 10px;
+      margin:14px 0 8px;
       font-size:34px;
       font-weight:700;
       color:var(--wood-dark);
@@ -75,8 +76,26 @@
       margin:18px auto;
     }
 
+    .person{
+      margin-top:6px;
+      color:#3b2a1f;
+      line-height:1.7;
+    }
+    .person .rank{
+      font-size:16px;
+      letter-spacing:.06em;
+      color:#6b5442;
+      text-transform:uppercase;
+    }
+    .person .name{
+      font-size:22px;
+      font-weight:700;
+      color:var(--wood-dark);
+      margin-top:4px;
+    }
+
     .info{
-      margin-top:26px;
+      margin-top:22px;
       border-top:1px solid var(--line);
       border-bottom:1px solid var(--line);
       padding:22px 10px;
@@ -88,6 +107,7 @@
       font-size:13px;
       letter-spacing:.12em;
       color:#6b5442;
+      text-transform:uppercase;
     }
 
     .value{
@@ -98,14 +118,26 @@
     }
 
     .note{
-      margin-top:22px;
+      margin-top:18px;
       font-size:15px;
       color:#4a382c;
+      line-height:1.75;
+    }
+
+    .note .strong{
+      font-weight:700;
+      color:var(--wood-dark);
+    }
+
+    .subnote{
+      margin-top:12px;
+      font-size:14px;
+      color:#5a4637;
       line-height:1.7;
     }
 
     /* ===== RSVP ===== */
-    .rsvpBox{ margin-top:28px; }
+    .rsvpBox{ margin-top:26px; }
 
     .rsvpInput{
       width:min(420px,100%);
@@ -158,14 +190,16 @@
     .rsvpMsg.show{ display:block; }
 
     .footer{
-      margin-top:24px;
+      margin-top:22px;
       font-size:13px;
       color:#7a6757;
+      line-height:1.6;
     }
 
     @media (max-width:520px){
       h1{font-size:28px}
       .card{padding:28px 20px 32px}
+      .person .name{font-size:20px}
     }
   </style>
 </head>
@@ -176,10 +210,24 @@
       <div class="title-small">TRÂN TRỌNG KÍNH MỜI</div>
 
       <h1>LỄ GIỖ 1 NĂM</h1>
-
       <div class="subtitle">Tưởng niệm &amp; tri ân</div>
 
       <div class="divider"></div>
+
+      <div class="person">
+        <div class="rank">Thiếu Tướng</div>
+        <div class="name">MAI XUÂN TẦN</div>
+      </div>
+
+      <div class="note" style="margin-top:18px;">
+        Nhân ngày giỗ <span class="strong">một năm</span> của <span class="strong">Thiếu Tướng Mai Xuân Tần</span>,<br/>
+        gia đình chúng tôi trân trọng kính mời quý thân bằng quyến thuộc, bằng hữu<br/>
+        đến tham dự lễ giỗ và cùng gia đình tưởng niệm người đã khuất.
+      </div>
+
+      <div class="subnote">
+        Người mời: <span class="strong">Ông Mai Xuân Đức</span>
+      </div>
 
       <div class="info">
         <div class="info-row">
@@ -194,9 +242,8 @@
       </div>
 
       <div class="note">
-        Kính mời quý thân bằng quyến thuộc, bằng hữu<br/>
-        dành chút thời gian đến tham dự lễ giỗ,<br/>
-        thắp nén hương lòng tưởng nhớ.
+        Sự hiện diện của quý vị là nguồn động viên lớn đối với gia đình.<br/>
+        Kính mong quý vị dành chút thời gian đến thắp nén hương lòng tưởng nhớ.
       </div>
 
       <!-- ===== RSVP SUBMIT BẰNG ENTRY ===== -->
@@ -243,7 +290,7 @@
       </div>
 
       <div class="footer">
-        Sự hiện diện của quý vị là niềm an ủi lớn lao cho gia đình
+        (Vui lòng xác nhận để gia đình tiện sắp xếp.)
       </div>
     </div>
   </div>
