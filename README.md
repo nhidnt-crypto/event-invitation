@@ -547,29 +547,25 @@
                     </div>
 
                     <div class="note">
-                      Nhân ngày giỗ <span class="strong">một năm</span> của
-                      <span class="strong">Thiếu Tướng Mai Xuân Tần</span>,<br>
-                      gia đình trân trọng kính mời quý thân bằng quyến thuộc, bằng hữu
-                      đến tham dự lễ giỗ và cùng gia đình tưởng niệm người đã khuất.
+                     Ông / Bố kính yêu của chúng tôi <span class="strong"Mai Xuân Tần</span> .
+                     Nhân ngày giỗ đầu của Ông / Bố Mai Xuân Tần, gia đình chúng tôi trân trọng kính mời quý thân bằng quyến thuộc, bà con, bạn hữu đến dự lễ giỗ và dùng bữa cơm thân mật, cùng gia đình tưởng nhớ đến Ông / Bố chúng tôi.
                     </div>
 
                     <div class="info">
                       <div>
                         <div class="label">THỜI GIAN</div>
-                        <div class="value">Ngày 12 tháng 01 năm 2026</div>
+                        <div class="value">11:00 Trưa - Ngày 18 tháng 01 năm 2026</div>
                       </div>
                       <div style="margin-top:12px">
                         <div class="label">ĐỊA ĐIỂM</div>
-                        <div class="value">Điện Biên Phủ, TP. Hồ Chí Minh</div>
+                        <div class="value">Nhà hàng Biển Dương 6, 205 Cách Mạng Tháng Tám, Phường Xuân Hòa, TP Hồ Chí Minh.</div>
                       </div>
                     </div>
 
                     <div class="note">
-                      Sự hiện diện của quý vị là nguồn động viên lớn đối với gia đình.<br><br>
-                      <span class="strong">Thay mặt gia đình,</span><br>
-                      Con trai: <span class="strong">Mai Xuân Đức</span><br>
-                      Con dâu: <span class="strong">Trần Phan Chung Thủy</span><br>
-                      Kính mời cùng các con, cháu.
+                      Sự hiện diện của quý vị là niềm an ủi và động viên lớn đối với gia đình chúng tôi.<br><br>
+                      Kính mong quý vị bớt chút thời gian đến chung giỗ, cùng gia đình dùng bữa cơm tưởng niệm trong không khí ấm cúng, nghĩa tình.
+<strong>Gia đình đồng kính mời</strong>
                     </div>
 
                     <!-- RSVP -->
