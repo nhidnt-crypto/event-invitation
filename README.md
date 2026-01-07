@@ -16,9 +16,14 @@
       --wood-light:#8b6a4f;
       --text:#2b1d14;
       --paper:#fbf8f4;
-    }
-    *{ box-sizing:border-box; }
 
+      --env:#f7f2ea;
+      --env2:#efe5d8;
+      --envStroke:rgba(58,42,31,.22);
+      --shadow:rgba(0,0,0,.16);
+    }
+
+    *{ box-sizing:border-box; }
     body{
       margin:0;
       font-family:"Georgia","Times New Roman",serif;
@@ -30,185 +35,272 @@
       overflow-x:hidden;
     }
 
-    /* ====== ENVELOPE / CLOSED CARD STAGE ====== */
+    /* ====== STAGE ====== */
     .stage{
       min-height:100vh;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:24px;
+      padding:26px 16px;
+    }
+
+    .scene{
+      width:min(1040px, 100%);
+      position:relative;
       perspective:1400px;
     }
 
+    /* ====== ENVELOPE ====== */
     .envelope{
-      width:min(1020px, 100%);
       position:relative;
-    }
+      width:min(900px, 100%);
+      margin:0 auto;
+      height:440px;
+      border-radius:20px;
 
-    /* click overlay */
-    .tapHint{
+      /* ✅ FIX: remove filter (creates stacking context & causes overlay bug) */
+      filter:none;
+
+      /* ✅ keep envelope above backdrop */
+      z-index:20;
+    }
+    .envelope.open{ z-index:60; }
+
+    .env-base{
       position:absolute;
-      inset:auto 0 -56px 0;
-      display:flex;
-      justify-content:center;
-      pointer-events:none;
-      font-size:13px;
-      color:rgba(58,42,31,.70);
-    }
-
-    .envelope-shell{
-      position:relative;
-      width:100%;
-      border-radius:18px;
-      background:linear-gradient(180deg,#fffdfb 0%, #fbf8f4 100%);
-      border:1px solid rgba(58,42,31,.22);
-      box-shadow:0 22px 70px rgba(0,0,0,.16);
+      inset:0;
+      border-radius:20px;
+      background:linear-gradient(180deg, var(--env) 0%, var(--env2) 100%);
+      border:1px solid var(--envStroke);
       overflow:hidden;
-      transform-style:preserve-3d;
+
+      /* ✅ FIX: move shadow here instead of filter */
+      box-shadow:0 24px 50px var(--shadow);
+    }
+    .env-base::before{
+      content:"";
+      position:absolute;
+      inset:14px;
+      border-radius:16px;
+      border:1px solid rgba(58,42,31,.18);
+      pointer-events:none;
     }
 
-    /* cover (front) */
-    .cover{
+    /* ===== Card preview (thò ra) ===== */
+    .card-peek{
+      position:absolute;
+      left:50%;
+      top:34px;
+      transform:translateX(-50%);
+      width:min(720px, calc(100% - 70px));
+      height:250px;
+      border-radius:16px;
+      background:linear-gradient(180deg,#fffdfb 0%, #fbf8f4 100%);
+      border:1px solid rgba(58,42,31,.18);
+      box-shadow:0 18px 40px rgba(0,0,0,.10);
+      z-index:2; /* dưới flap, trên nền */
+      overflow:hidden;
+    }
+
+    .card-peek::before{
+      content:"";
+      position:absolute;
+      inset:14px;
+      border-radius:12px;
+      border:1px solid rgba(58,42,31,.14);
+      pointer-events:none;
+    }
+
+    .peekText{
       position:absolute;
       inset:0;
       display:flex;
       align-items:center;
       justify-content:center;
       text-align:center;
-      padding:34px 24px;
-      background:
-        radial-gradient(900px 420px at 12% 18%, rgba(139,106,79,.14), transparent 60%),
-        radial-gradient(900px 420px at 88% 70%, rgba(58,42,31,.10), transparent 62%),
-        linear-gradient(180deg,#fffdfb 0%, #fbf8f4 100%);
-      transform-origin:left center;
-      transform:rotateY(0deg);
-      transition:transform 900ms cubic-bezier(.2,.85,.2,1);
-      z-index:5;
-      backface-visibility:hidden;
+      padding:22px 18px;
+      color:var(--wood-dark);
     }
-
-    .cover::before{
-      content:"";
-      position:absolute;
-      inset:14px;
-      border:1.5px solid rgba(58,42,31,.30);
-      border-radius:14px;
-      pointer-events:none;
-    }
-
-    .cover-inner{
-      max-width:520px;
-    }
-
-    .cover-top{
+    .peekText .t1{
       font-size:12px;
       letter-spacing:.22em;
       color:var(--wood-light);
       text-transform:uppercase;
     }
-
-    .cover-title{
-      margin:14px 0 8px;
+    .peekText .t2{
+      margin:12px 0 6px;
       font-size:34px;
-      color:var(--wood-dark);
       font-weight:700;
       letter-spacing:.02em;
     }
-
-    .cover-sub{
+    .peekText .t3{
       font-size:15px;
       color:#5a4637;
       line-height:1.65;
     }
-
-    .cover-line{
+    .peekText .line{
       width:120px;
       height:2px;
       background:linear-gradient(90deg,transparent,var(--wood),transparent);
-      margin:16px auto 14px;
+      margin:14px auto 12px;
     }
-
-    .cover-name{
-      margin-top:10px;
+    .peekText .t4{
       font-size:15px;
       letter-spacing:.08em;
       color:#6b5442;
       text-transform:uppercase;
     }
-
-    .cover-person{
+    .peekText .t5{
       margin-top:6px;
       font-size:20px;
       font-weight:700;
       color:var(--wood-dark);
     }
 
-    .cover-cta{
-      margin-top:18px;
-      display:inline-flex;
+    /* Pocket (front) */
+    .env-pocket{
+      position:absolute;
+      left:0; right:0;
+      bottom:0;
+      height:60%;
+      background:linear-gradient(180deg, rgba(255,255,255,.52) 0%, rgba(239,229,216,.94) 100%);
+      border-top:1px solid rgba(58,42,31,.10);
+      clip-path: polygon(0 0, 50% 58%, 100% 0, 100% 100%, 0 100%);
+      z-index:5;
+    }
+
+    /* Flap */
+    .env-flap{
+      position:absolute;
+      left:0; right:0;
+      top:0;
+      height:64%;
+      transform-origin: top center;
+      background:linear-gradient(180deg, #fffdfb 0%, #f2e7da 100%);
+      clip-path: polygon(0 0, 100% 0, 50% 72%);
+      border-bottom:1px solid rgba(58,42,31,.10);
+      z-index:6;
+      transform: rotateX(0deg);
+      transition: transform 900ms cubic-bezier(.2,.85,.2,1);
+      backface-visibility:hidden;
+    }
+
+    /* Seal */
+    .seal{
+      position:absolute;
+      left:50%;
+      top:56%;
+      transform:translate(-50%,-50%);
+      width:64px;
+      height:64px;
+      border-radius:18px;
+      background:rgba(255,255,255,.55);
+      border:1px solid rgba(58,42,31,.20);
+      display:flex;
       align-items:center;
       justify-content:center;
-      gap:10px;
-      padding:12px 18px;
-      border-radius:12px;
-      border:1px solid rgba(90,60,40,.30);
-      background:rgba(255,255,255,.65);
-      color:var(--wood-dark);
-      font-weight:700;
-      cursor:pointer;
-      user-select:none;
+      z-index:7;
       box-shadow:0 10px 24px rgba(0,0,0,.10);
+      cursor:pointer;
+    }
+    .seal .sealText{
+      font-size:11px;
+      letter-spacing:.18em;
+      color:rgba(58,42,31,.70);
+      text-transform:uppercase;
+      text-align:center;
+      line-height:1.2;
+      padding:0 6px;
+      user-select:none;
     }
 
-    .cover-cta:active{ transform:translateY(1px); }
-
-    /* inner content container */
-    .cardContent{
-      position:relative;
-      transform:translateZ(0);
-      opacity:0;
-      transition:opacity 500ms ease;
-    }
-
-    /* open state */
-    .envelope.open .cover{
-      transform:rotateY(-160deg);
-    }
-    .envelope.open .cardContent{
-      opacity:1;
-    }
-
-    /* allow click on entire closed cover */
-    .clickArea{
+    /* Click anywhere closed */
+    .clickOpen{
       position:absolute;
       inset:0;
-      z-index:6;
+      z-index:9;
       cursor:pointer;
     }
-    .envelope.open .clickArea{
-      display:none;
+    .open .clickOpen{ display:none; }
+
+    /* ====== BACKDROP (click to close after open) ====== */
+    .backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.22);
+      backdrop-filter: blur(2px);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity 250ms ease;
+
+      /* ✅ FIX: must be below envelope/card */
+      z-index:10;
+    }
+    .open + .backdrop{
+      opacity:1;
+      pointer-events:auto;
     }
 
-    /* small close button */
+    /* ====== CARD SLIDE OUT ====== */
+    .cardWrap{
+      position:absolute;
+      left:50%;
+      top:26px;
+      transform:translateX(-50%) translateY(240px) scale(.985);
+      width:min(980px, 100%);
+      z-index:40; /* above backdrop */
+      transition: transform 950ms cubic-bezier(.2,.85,.2,1), opacity 500ms ease;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .open .cardWrap{
+      transform:translateX(-50%) translateY(-12px) scale(1);
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .open .env-flap{
+      transform: rotateX(165deg);
+    }
+
+    .open .seal{
+      opacity:0;
+      transition:opacity 250ms ease;
+      pointer-events:none;
+    }
+
+    /* Khi mở: ẩn card preview thò ra để không bị trùng */
+    .open .card-peek{
+      opacity:0;
+      transition:opacity 220ms ease;
+    }
+
+    /* ====== CLOSE BUTTON: only shows after open ====== */
     .closeBtn{
       position:absolute;
-      top:14px;
-      right:14px;
-      z-index:7;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid rgba(90,60,40,.25);
-      background:rgba(255,255,255,.70);
+      top:-14px;
+      right:-14px;
+      width:44px;
+      height:44px;
+      border-radius:14px;
+      border:1px solid rgba(90,60,40,.28);
+      background:rgba(255,255,255,.78);
       color:var(--wood-dark);
-      font-weight:700;
+      font-weight:900;
+      font-size:18px;
       cursor:pointer;
-      display:none;
+      box-shadow:0 14px 30px rgba(0,0,0,.12);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:41;
     }
-    .envelope.open .closeBtn{ display:inline-flex; }
+    .closeBtn:active{ transform:translateY(1px); }
 
-    /* ====== YOUR ORIGINAL CSS (UNCHANGED) ====== */
+    /* ====== YOUR ORIGINAL CARD CSS ====== */
     .wrap{
-      min-height:100vh;
+      min-height:unset;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -409,45 +501,57 @@
 
     @media(max-width:860px){
       .grid{ grid-template-columns:1fr; }
-      .tapHint{ inset:auto 0 -44px 0; }
+      .envelope{ height:480px; }
+      .card-peek{ width:calc(100% - 44px); height:240px; top:30px; }
+      .peekText .t2{ font-size:30px; }
+      .closeBtn{ top:-10px; right:-10px; }
     }
 
-    /* reduce motion */
     @media (prefers-reduced-motion: reduce){
-      .cover, .cardContent{ transition:none !important; }
+      .env-flap, .cardWrap, .card-peek, .backdrop{ transition:none !important; }
     }
   </style>
 </head>
 
 <body>
   <div class="stage">
-    <div class="envelope" id="envelope">
-      <div class="envelope-shell">
+    <div class="scene">
 
-        <!-- CLICK AREA (only when closed) -->
-        <div class="clickArea" onclick="openCard()"></div>
+      <div class="envelope" id="env">
+        <div class="env-base"></div>
 
-        <!-- COVER (closed view) -->
-        <div class="cover" aria-label="Bìa thiệp">
-          <div class="cover-inner">
-            <div class="cover-top">TRÂN TRỌNG KÍNH MỜI</div>
-            <div class="cover-title">LỄ GIỖ 1 NĂM</div>
-            <div class="cover-sub">Tưởng niệm &amp; tri ân</div>
-            <div class="cover-line"></div>
-            <div class="cover-name">THIẾU TƯỚNG</div>
-            <div class="cover-person">MAI XUÂN TẦN</div>
-
-            <div class="cover-cta" onclick="openCard()">
-              MỞ THIỆP
+        <!-- card preview peeking out -->
+        <div class="card-peek" aria-hidden="true">
+          <div class="peekText">
+            <div>
+              <div class="t1">TRÂN TRỌNG KÍNH MỜI</div>
+              <div class="t2">LỄ GIỖ 1 NĂM</div>
+              <div class="t3">Tưởng niệm &amp; tri ân</div>
+              <div class="line"></div>
+              <div class="t4">THIẾU TƯỚNG</div>
+              <div class="t5">MAI XUÂÂN TẦN</div>
             </div>
           </div>
         </div>
 
-        <!-- CLOSE BTN (only when open) -->
-        <button class="closeBtn" type="button" onclick="closeCard()">Đóng thiệp</button>
+        <!-- click anywhere on closed envelope -->
+        <div class="clickOpen" onclick="openEnvelope()"></div>
 
-        <!-- YOUR ORIGINAL CARD (UNCHANGED CONTENT) -->
-        <div class="cardContent">
+        <!-- flap -->
+        <div class="env-flap" aria-hidden="true"></div>
+
+        <!-- seal -->
+        <div class="seal" aria-hidden="true" onclick="openEnvelope()">
+          <div class="sealText">MỞ<br>THIỆP</div>
+        </div>
+
+        <!-- pocket front -->
+        <div class="env-pocket" aria-hidden="true"></div>
+
+        <!-- CARD slides out -->
+        <div class="cardWrap" id="cardWrap" role="dialog" aria-modal="true" aria-label="Thiệp mời">
+          <button class="closeBtn" type="button" onclick="closeEnvelope()" aria-label="Đóng thiệp">×</button>
+
           <div class="wrap">
             <div class="frame">
               <div class="frame-inner">
@@ -538,48 +642,46 @@
             </div>
           </div>
 
-          <script>
-            function submitRSVP(e, choice){
-              if(e) e.preventDefault();
-              const name = document.getElementById('guestName').value.trim();
-              if(!name){ alert('Vui lòng nhập Họ và tên'); return; }
-              document.getElementById('f_name').value = name;
-              document.getElementById('f_attend').value = choice;
-              document.getElementById('rsvpForm').submit();
-              const msg = document.getElementById('rsvpMsg');
-              msg.textContent = `Gia đình đã ghi nhận: ${choice}. Xin chân thành cảm ơn.`;
-              msg.classList.add('show');
-            }
-          </script>
         </div>
-
       </div>
 
-      <div class="tapHint">Chạm để mở thiệp</div>
+      <!-- Backdrop must be right after envelope for .open + .backdrop -->
+      <div class="backdrop" id="backdrop" onclick="closeEnvelope()" aria-hidden="true"></div>
+
     </div>
   </div>
 
   <script>
-    const env = document.getElementById('envelope');
+    const env = document.getElementById('env');
 
-    function openCard(){
+    function openEnvelope(){
       env.classList.add('open');
-      // scroll nhẹ xuống nội dung khi mở (đỡ bị lạc)
-      setTimeout(()=>{ window.scrollTo({top: 0, behavior:'smooth'}); }, 50);
+      setTimeout(()=>{ window.scrollTo({top:0, behavior:'smooth'}); }, 60);
     }
 
-    function closeCard(){
+    function closeEnvelope(){
       env.classList.remove('open');
-      setTimeout(()=>{ window.scrollTo({top: 0, behavior:'smooth'}); }, 50);
+      setTimeout(()=>{ window.scrollTo({top:0, behavior:'smooth'}); }, 60);
     }
 
-    // mở bằng phím Enter/Space nếu focus vào trang
+    function submitRSVP(e, choice){
+      if(e) e.preventDefault();
+      const name = document.getElementById('guestName').value.trim();
+      if(!name){ alert('Vui lòng nhập Họ và tên'); return; }
+      document.getElementById('f_name').value = name;
+      document.getElementById('f_attend').value = choice;
+      document.getElementById('rsvpForm').submit();
+      const msg = document.getElementById('rsvpMsg');
+      msg.textContent = `Gia đình đã ghi nhận: ${choice}. Xin chân thành cảm ơn.`;
+      msg.classList.add('show');
+    }
+
     window.addEventListener('keydown', (e)=>{
       if(e.key === 'Enter' || e.key === ' '){
-        if(!env.classList.contains('open')) openCard();
+        if(!env.classList.contains('open')) openEnvelope();
       }
       if(e.key === 'Escape'){
-        if(env.classList.contains('open')) closeCard();
+        if(env.classList.contains('open')) closeEnvelope();
       }
     });
   </script>
