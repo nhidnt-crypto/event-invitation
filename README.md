@@ -280,8 +280,8 @@
             <ul>
               <li>Đón tiếp</li>
               <li>Tưởng niệm &amp; thắp hương</li>
-              <li>Gặp gỡ gia đình</li>
-            </ul>
+<li> Dùng bữa thân mật
+                         </ul>
           </div>
         </div>
 
@@ -304,9 +304,7 @@
             đến tham dự lễ giỗ và cùng gia đình tưởng niệm người đã khuất.
           </div>
 
-          <div class="subnote">
-            Người mời: <strong>Ông Mai Xuân Đức</strong>
-          </div>
+        
 
           <div class="info">
             <div>
@@ -320,8 +318,14 @@
           </div>
 
           <div class="note">
-            Sự hiện diện của quý vị là nguồn động viên lớn đối với gia đình.
-          </div>
+  Sự hiện diện của quý vị là nguồn động viên lớn đối với gia đình.<br><br>
+
+  <span class="strong">Thay mặt gia đình:</span><br>
+  Con trai: <span class="strong">Mai Xuân Đức</span><br>
+  Con dâu: <span class="strong">Trần Phan Chung Thủy</span><br>
+  Cùng các con, cháu
+</div>
+
 
           <!-- RSVP -->
           <div class="rsvpBox">
