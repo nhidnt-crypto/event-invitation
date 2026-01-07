@@ -76,6 +76,7 @@
       margin:18px auto;
     }
 
+    /* ===== PERSON ===== */
     .person{
       margin-top:6px;
       color:#3b2a1f;
@@ -94,6 +95,19 @@
       margin-top:4px;
     }
 
+    .person-img{
+      margin-top:14px;
+      display:flex;
+      justify-content:center;
+    }
+    .person-img img{
+      max-width:160px;
+      width:100%;
+      height:auto;
+      opacity:.95;
+    }
+
+    /* ===== CONTENT ===== */
     .info{
       margin-top:22px;
       border-top:1px solid var(--line);
@@ -217,12 +231,21 @@
       <div class="person">
         <div class="rank">Thiếu Tướng</div>
         <div class="name">MAI XUÂN TẦN</div>
+
+        <!-- Hình trang trí dưới tên -->
+        <div class="person-img">
+          <img
+            src="https://i.postimg.cc/gxqCgNvY/ten.png"
+            alt="Trang trí tên Thiếu Tướng Mai Xuân Tần"
+          >
+        </div>
       </div>
 
-      <div class="note" style="margin-top:18px;">
-        Nhân ngày giỗ <span class="strong">một năm</span> của <span class="strong">Thiếu Tướng Mai Xuân Tần</span>,<br/>
-        gia đình chúng tôi trân trọng kính mời quý thân bằng quyến thuộc, bằng hữu<br/>
-        đến tham dự lễ giỗ và cùng gia đình tưởng niệm người đã khuất.
+      <div class="note">
+        Nhân ngày giỗ <span class="strong">một năm</span> của
+        <span class="strong">Thiếu Tướng Mai Xuân Tần</span>,<br/>
+        gia đình chúng tôi trân trọng kính mời quý thân bằng quyến thuộc,
+        bằng hữu đến tham dự lễ giỗ và cùng gia đình tưởng niệm người đã khuất.
       </div>
 
       <div class="subnote">
@@ -246,7 +269,7 @@
         Kính mong quý vị dành chút thời gian đến thắp nén hương lòng tưởng nhớ.
       </div>
 
-      <!-- ===== RSVP SUBMIT BẰNG ENTRY ===== -->
+      <!-- ===== RSVP ===== -->
       <div class="rsvpBox">
         <div class="label">XÁC NHẬN THAM DỰ</div>
 
@@ -258,7 +281,6 @@
           required
         >
 
-        <!-- iframe ẩn để submit không rời trang -->
         <iframe name="hidden_iframe" style="display:none;"></iframe>
 
         <form
@@ -267,7 +289,6 @@
           method="POST"
           target="hidden_iframe">
 
-          <!-- ENTRY IDs -->
           <input type="hidden" name="entry.2035054770" id="f_name">
           <input type="hidden" name="entry.1484132997" id="f_attend">
         </form>
