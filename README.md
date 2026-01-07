@@ -1,7 +1,3 @@
----
-title: ""
-layout: default
----
 
 
 <html lang="vi">
