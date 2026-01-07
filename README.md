@@ -1,4 +1,4 @@
-[<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
@@ -61,82 +61,88 @@
     }
 
     /* LEFT */
-    .left{ padding-top:6px; }
     .photo-wrap{
       display:flex;
       justify-content:center;
       margin-top:10px;
     }
-
     .photo-frame{
       width:260px;
       height:320px;
       border-radius:180px;
       position:relative;
-      background:linear-gradient(180deg,#fff 0%, #f4efe8 100%);
+      background:#fff;
       border:1px solid rgba(90,60,40,.28);
       box-shadow:0 16px 40px rgba(0,0,0,.10);
       overflow:hidden;
     }
-    .photo-frame:before{
-      content:"";
-      position:absolute;
-      inset:10px;
-      border-radius:170px;
-      border:2px dotted rgba(139,106,79,.35);
-      pointer-events:none;
-    }
-    .photo{
-      position:absolute;
-      inset:18px;
-      border-radius:160px;
-      overflow:hidden;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:linear-gradient(180deg,#f7f3ee 0%, #efe7dd 100%);
-    }
-    .photo img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .photo-placeholder{
-      text-align:center;
-      padding:18px;
-      color:#6b5442;
-      font-size:14px;
-      line-height:1.5;
-      display:none;
-    }
+ /* ===== PORTRAIT FRAME – RECTANGLE (như ảnh mẫu) ===== */
+.photo-frame{
+  width:260px;
+  height:330px;
+  position:relative;
+  background:#fff;
+  border-radius:8px;
+  border:3px solid rgba(40,32,26,.72);           /* viền ngoài đậm */
+  box-shadow:0 18px 45px rgba(0,0,0,.16);
+  overflow:hidden;
+}
+
+/* viền trong (double frame) */
+.photo-frame::before{
+  content:"";
+  position:absolute;
+  inset:8px;
+  border-radius:6px;
+  border:2px solid rgba(40,32,26,.55);
+  pointer-events:none;
+  z-index:3;
+}
+
+/* lớp nền trong cùng */
+.photo{
+  position:absolute;
+  inset:14px;
+  border-radius:4px;
+  overflow:hidden;
+  background:#ffffff;
+  z-index:1;
+}
+
+/* ảnh */
+.photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;       /* ✅ nhìn giống ảnh mẫu */
+  object-position:center; /* ✅ canh giữa */
+  display:block;
+}
+
 
     .program{
       margin-top:18px;
-      padding:14px 14px 12px;
+      padding:14px;
       border:1px solid rgba(90,60,40,.22);
       background:#fff;
     }
     .program h3{
       margin:0 0 10px;
       font-size:16px;
-      letter-spacing:.10em;
+      letter-spacing:.1em;
       text-transform:uppercase;
       color:var(--wood-dark);
     }
     .program ul{
       margin:0;
       padding-left:18px;
-      color:#4a382c;
       font-size:14px;
       line-height:1.7;
+      color:#4a382c;
     }
 
     /* RIGHT */
-    .right{
-      text-align:center;
-      padding-top:4px;
-    }
+    .right{ text-align:center; }
+
     .title-small{
       letter-spacing:.18em;
       font-size:13px;
@@ -149,10 +155,8 @@
       font-weight:700;
       color:var(--wood-dark);
     }
-    .subtitle{
-      font-size:16px;
-      color:#5a4637;
-    }
+    .subtitle{ font-size:16px; color:#5a4637; }
+
     .divider{
       width:120px;
       height:2px;
@@ -160,10 +164,6 @@
       margin:16px auto 14px;
     }
 
-    .person{
-      margin-top:4px;
-      line-height:1.7;
-    }
     .person .rank{
       font-size:15px;
       letter-spacing:.06em;
@@ -174,25 +174,20 @@
       font-size:22px;
       font-weight:700;
       color:var(--wood-dark);
-      margin-top:3px;
     }
 
     .note{
       margin-top:14px;
       font-size:15px;
-      color:#4a382c;
       line-height:1.75;
+      color:#4a382c;
     }
-    .note .strong{
-      font-weight:700;
-      color:var(--wood-dark);
-    }
+    .note .strong{ font-weight:700; }
 
     .subnote{
       margin-top:10px;
       font-size:14px;
       color:#5a4637;
-      line-height:1.7;
     }
 
     .info{
@@ -201,18 +196,16 @@
       border-bottom:1px solid rgba(90,60,40,.22);
       padding:16px 10px;
     }
-    .info-row{ margin:12px 0; }
     .label{
       font-size:12px;
       letter-spacing:.12em;
-      color:#6b5442;
       text-transform:uppercase;
+      color:#6b5442;
     }
     .value{
       margin-top:6px;
       font-size:18px;
       font-weight:600;
-      color:#3b2a1f;
     }
 
     /* RSVP */
@@ -222,42 +215,35 @@
       padding:12px 14px;
       border-radius:12px;
       border:1px solid rgba(90,60,40,.28);
-      outline:none;
       font-family:inherit;
-      font-size:15px;
-      background:#fff;
     }
     .btnRow{
       display:flex;
       gap:10px;
       justify-content:center;
-      flex-wrap:wrap;
       margin-top:12px;
-    }
-    .btnRSVP{
-      padding:12px 18px;
-      border-radius:12px;
-      font-weight:700;
-      font-size:15px;
-      letter-spacing:.04em;
-      cursor:pointer;
-      border:0;
     }
     .btnAttend{
       background:var(--wood);
       color:#fff;
-      box-shadow:0 6px 16px rgba(0,0,0,.18);
+      padding:12px 18px;
+      border-radius:12px;
+      border:0;
+      font-weight:700;
+      cursor:pointer;
     }
     .btnDecline{
       background:transparent;
-      color:var(--wood-dark);
       border:1px solid rgba(90,60,40,.35);
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:700;
+      cursor:pointer;
     }
     .rsvpMsg{
       display:none;
       margin-top:10px;
       font-size:14px;
-      color:#4a382c;
     }
     .rsvpMsg.show{ display:block; }
 
@@ -265,154 +251,116 @@
       margin-top:16px;
       font-size:12.5px;
       color:#7a6757;
-      line-height:1.6;
-      text-align:center;
     }
 
-    @media (max-width:860px){
-      .grid{ grid-template-columns: 1fr; }
-      .left{ order:2; }
-      .right{ order:1; }
-      .photo-frame{ width:240px; height:300px; }
-    }
-    @media (max-width:520px){
-      h1{ font-size:28px; }
-      .frame-inner{ padding:18px; }
-      .photo-frame{ width:220px; height:280px; }
-      .person .name{ font-size:20px; }
+    @media(max-width:860px){
+      .grid{ grid-template-columns:1fr; }
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="frame">
-      <div class="frame-inner">
-        <div class="grid">
+<div class="wrap">
+  <div class="frame">
+    <div class="frame-inner">
+      <div class="grid">
 
-          <!-- LEFT COLUMN -->
-          <div class="left">
-            <div class="photo-wrap">
-              <div class="photo-frame">
-                <div class="photo">
-                  <!-- ✅ DÁN LINK ẢNH TRỰC TIẾP (.jpg/.png) -->
-                  <img
-                    id="portrait"
-                    src="PHOTO_DIRECT_URL_HERE"
-                    alt="Chân dung"
-                    onerror="this.style.display='none';document.getElementById('ph').style.display='block';"
-                  >
-
-                  <div class="photo-placeholder" id="ph">
-                    Ảnh chưa tải được.<br/>
-                    Vui lòng thay <strong>PHOTO_DIRECT_URL_HERE</strong><br/>
-                    bằng link ảnh <strong>.jpg/.png</strong> trực tiếp.
-                  </div>
-                </div>
+        <!-- LEFT -->
+        <div>
+          <div class="photo-wrap">
+            <div class="photo-frame">
+              <div class="photo">
+                <img src="https://i.postimg.cc/zBXNdHfz/489281397-1304542471178308-1599223331279466639-n.jpg" alt="Thiếu Tướng Mai Xuân Tần">
               </div>
-            </div>
-
-            <div class="program">
-              <h3>Chương trình</h3>
-              <ul>
-                <li>Đón tiếp</li>
-                <li>Tưởng niệm &amp; thắp hương</li>
-                <li>Gặp gỡ gia đình</li>
-              </ul>
             </div>
           </div>
 
-          <!-- RIGHT COLUMN -->
-          <div class="right">
-            <div class="title-small">TRÂN TRỌNG KÍNH MỜI</div>
-
-            <h1>LỄ GIỖ 1 NĂM</h1>
-            <div class="subtitle">Tưởng niệm &amp; tri ân</div>
-
-            <div class="divider"></div>
-
-            <div class="person">
-              <div class="rank">Thiếu Tướng</div>
-              <div class="name">MAI XUÂN TẦN</div>
-            </div>
-
-            <div class="note">
-              Nhân ngày giỗ <span class="strong">một năm</span> của
-              <span class="strong">Thiếu Tướng Mai Xuân Tần</span>,<br/>
-              gia đình chúng tôi trân trọng kính mời quý thân bằng quyến thuộc,
-              bằng hữu đến tham dự lễ giỗ và cùng gia đình tưởng niệm người đã khuất.
-            </div>
-
-            <div class="subnote">
-              Người mời: <span class="strong">Ông Mai Xuân Đức</span>
-            </div>
-
-            <div class="info">
-              <div class="info-row">
-                <div class="label">THỜI GIAN</div>
-                <div class="value">Ngày 12 tháng 01 năm 2026</div>
-              </div>
-
-              <div class="info-row">
-                <div class="label">ĐỊA ĐIỂM</div>
-                <div class="value">Điện Biên Phủ, TP. Hồ Chí Minh</div>
-              </div>
-            </div>
-
-            <div class="note">
-              Sự hiện diện của quý vị là nguồn động viên lớn đối với gia đình.<br/>
-              Kính mong quý vị dành chút thời gian đến thắp nén hương lòng tưởng nhớ.
-            </div>
-
-            <div class="rsvpBox">
-              <div class="label">XÁC NHẬN THAM DỰ</div>
-
-              <input id="guestName" class="rsvpInput" type="text" placeholder="Họ và tên" required>
-
-              <iframe name="hidden_iframe" style="display:none;"></iframe>
-
-              <form
-                id="rsvpForm"
-                action="https://docs.google.com/forms/d/e/1FAIpQLSeAbEEMP7dOkfBvpq9N7Kt3Z7NTFxxC3UYFzN2UIViH9GNDXA/formResponse"
-                method="POST"
-                target="hidden_iframe">
-                <input type="hidden" name="entry.2035054770" id="f_name">
-                <input type="hidden" name="entry.1484132997" id="f_attend">
-              </form>
-
-              <div class="btnRow">
-                <button class="btnRSVP btnAttend" type="button" onclick="submitRSVP('Tham dự')">THAM DỰ</button>
-                <button class="btnRSVP btnDecline" type="button" onclick="submitRSVP('Không tham dự')">KHÔNG THAM DỰ</button>
-              </div>
-
-              <div class="rsvpMsg" id="rsvpMsg">Gia đình đã ghi nhận. Xin chân thành cảm ơn.</div>
-            </div>
-
-            <div class="footer">(Vui lòng xác nhận để gia đình tiện sắp xếp.)</div>
+          <div class="program">
+            <h3>Chương trình</h3>
+            <ul>
+              <li>Đón tiếp</li>
+              <li>Tưởng niệm &amp; thắp hương</li>
+              <li>Gặp gỡ gia đình</li>
+            </ul>
           </div>
-
         </div>
+
+        <!-- RIGHT -->
+        <div class="right">
+          <div class="title-small">TRÂN TRỌNG KÍNH MỜI</div>
+          <h1>LỄ GIỖ 1 NĂM</h1>
+          <div class="subtitle">Tưởng niệm &amp; tri ân</div>
+          <div class="divider"></div>
+
+          <div class="person">
+            <div class="rank">Thiếu Tướng</div>
+            <div class="name">MAI XUÂN TẦN</div>
+          </div>
+
+          <div class="note">
+            Nhân ngày giỗ <span class="strong">một năm</span> của
+            <span class="strong">Thiếu Tướng Mai Xuân Tần</span>,<br/>
+            gia đình trân trọng kính mời quý thân bằng quyến thuộc, bằng hữu
+            đến tham dự lễ giỗ và cùng gia đình tưởng niệm người đã khuất.
+          </div>
+
+          <div class="subnote">
+            Người mời: <strong>Ông Mai Xuân Đức</strong>
+          </div>
+
+          <div class="info">
+            <div>
+              <div class="label">THỜI GIAN</div>
+              <div class="value">Ngày 12 tháng 01 năm 2026</div>
+            </div>
+            <div style="margin-top:12px">
+              <div class="label">ĐỊA ĐIỂM</div>
+              <div class="value">Điện Biên Phủ, TP. Hồ Chí Minh</div>
+            </div>
+          </div>
+
+          <div class="note">
+            Sự hiện diện của quý vị là nguồn động viên lớn đối với gia đình.
+          </div>
+
+          <!-- RSVP -->
+          <div class="rsvpBox">
+            <div class="label">XÁC NHẬN THAM DỰ</div>
+            <input id="guestName" class="rsvpInput" placeholder="Họ và tên">
+
+            <iframe name="hidden_iframe" style="display:none"></iframe>
+            <form id="rsvpForm"
+              action="https://docs.google.com/forms/d/e/1FAIpQLSeAbEEMP7dOkfBvpq9N7Kt3Z7NTFxxC3UYFzN2UIViH9GNDXA/formResponse"
+              method="POST" target="hidden_iframe">
+              <input type="hidden" name="entry.2035054770" id="f_name">
+              <input type="hidden" name="entry.1484132997" id="f_attend">
+            </form>
+
+            <div class="btnRow">
+              <button class="btnAttend" onclick="submitRSVP('Tham dự')">THAM DỰ</button>
+              <button class="btnDecline" onclick="submitRSVP('Không tham dự')">KHÔNG THAM DỰ</button>
+            </div>
+
+            <div class="rsvpMsg" id="rsvpMsg">Gia đình đã ghi nhận. Xin chân thành cảm ơn.</div>
+          </div>
+
+          <div class="footer">(Vui lòng xác nhận để gia đình tiện sắp xếp.)</div>
+        </div>
+
       </div>
     </div>
   </div>
+</div>
 
-  <script>
-    function submitRSVP(choice){
-      const name = document.getElementById('guestName').value.trim();
-      if(!name){
-        alert('Vui lòng nhập Họ và tên.');
-        document.getElementById('guestName').focus();
-        return;
-      }
-      document.getElementById('f_name').value = name;
-      document.getElementById('f_attend').value = choice;
-      document.getElementById('rsvpForm').submit();
-
-      const msg = document.getElementById('rsvpMsg');
-      msg.textContent = `Đã ghi nhận: ${choice}. Xin cảm ơn.`;
-      msg.classList.add('show');
-    }
-  </script>
+<script>
+function submitRSVP(choice){
+  const name=document.getElementById('guestName').value.trim();
+  if(!name){ alert('Vui lòng nhập Họ và tên'); return; }
+  document.getElementById('f_name').value=name;
+  document.getElementById('f_attend').value=choice;
+  document.getElementById('rsvpForm').submit();
+  document.getElementById('rsvpMsg').classList.add('show');
+}
+</script>
 </body>
 </html>
-](https://i.postimg.cc/zBXNdHfz/489281397-1304542471178308-1599223331279466639-n.jpg)
