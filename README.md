@@ -1,14 +1,17 @@
-
-
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lễ Giỗ 1 Năm • Thiếu Tướng Mai Xuân Tần</title>
 
+  <!-- Open Graph (share Facebook/Zalo) -->
   <meta property="og:title" content="LỄ GIỖ 1 NĂM • Thiếu Tướng Mai Xuân Tần">
-  <meta property="og:description" content="Trân trọng kính mời tham dự Lễ Giỗ 1 Năm • 12.01.2026 • Điện Biên Phủ, TP.HCM">
+  <meta property="og:description" content="Trân trọng kính mời tham dự Lễ Giỗ 1 Năm • 18.01.2026 • TP.HCM">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nhidnt-crypto.github.io/event-invitation/">
+  <meta property="og:image" content="https://i.postimg.cc/zBXNdHfz/489281397-1304542471178308-1599223331279466639-n.jpg">
+  <meta name="theme-color" content="#efe7dd">
 
   <style>
     :root{
@@ -57,7 +60,6 @@
       margin:0 auto;
       height:440px;
       border-radius:20px;
-
       filter:none;         /* FIX stacking bug */
       z-index:20;
     }
@@ -70,7 +72,6 @@
       background:linear-gradient(180deg, var(--env) 0%, var(--env2) 100%);
       border:1px solid var(--envStroke);
       overflow:hidden;
-
       box-shadow:0 24px 50px var(--shadow);
     }
     .env-base::before{
@@ -82,7 +83,7 @@
       pointer-events:none;
     }
 
-    /* ====== COVER TEXT on envelope (FIX: not hidden by flap) ====== */
+    /* ====== COVER TEXT on envelope ====== */
     .coverText{
       position:absolute;
       left:50%;
@@ -95,8 +96,7 @@
       background:rgba(255,255,255,.55);
       border:1px solid rgba(58,42,31,.18);
       box-shadow:0 10px 26px rgba(0,0,0,.08);
-
-      z-index:12; /* ✅ ABOVE flap (6) and pocket (5) */
+      z-index:12;          /* above flap/pocket */
       pointer-events:none; /* click passes through */
     }
     .coverText .a1{
@@ -133,14 +133,13 @@
       text-transform:uppercase;
       color:rgba(58,42,31,.70);
     }
-
     .open .coverText{
       opacity:0;
       transform:translate(-50%,-50%) scale(.98);
       transition:opacity 180ms ease, transform 180ms ease;
     }
 
-    /* Pocket (front) */
+    /* Pocket */
     .env-pocket{
       position:absolute;
       left:0; right:0;
@@ -168,7 +167,7 @@
       backface-visibility:hidden;
     }
 
-    /* Seal button (no text on top) */
+    /* Seal */
     .seal{
       position:absolute;
       left:50%;
@@ -182,7 +181,7 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      z-index:11; /* below coverText (12), still above flap */
+      z-index:11;
       box-shadow:0 10px 24px rgba(0,0,0,.10);
       cursor:pointer;
     }
@@ -202,7 +201,7 @@
     }
     .open .clickOpen{ display:none; }
 
-    /* ====== BACKDROP (click to close after open) ====== */
+    /* Backdrop */
     .backdrop{
       position:fixed;
       inset:0;
@@ -237,7 +236,6 @@
     }
     .open .env-flap{ transform: rotateX(165deg); }
 
-    /* Close button */
     .closeBtn{
       position:absolute;
       top:-14px;
@@ -261,7 +259,6 @@
 
     /* ====== CARD CONTENT ====== */
     .wrap{
-      min-height:unset;
       display:flex;
       align-items:center;
       justify-content:center;
@@ -482,7 +479,6 @@
       <div class="envelope" id="env">
         <div class="env-base"></div>
 
-        <!-- ✅ Outside envelope text (NOT hidden by flap) -->
         <div class="coverText" aria-hidden="true">
           <div class="a1">Lễ Giỗ 1 Năm</div>
           <div class="a2">Thiếu Tướng</div>
@@ -491,23 +487,18 @@
           <div class="openHint">MỞ THIỆP</div>
         </div>
 
-        <!-- click anywhere on closed envelope -->
         <div class="clickOpen" onclick="openEnvelope()"></div>
 
-        <!-- flap -->
         <div class="env-flap" aria-hidden="true"></div>
 
-        <!-- seal icon button -->
         <div class="seal" aria-hidden="true" onclick="openEnvelope()" title="Mở thiệp">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7 10l5 5 5-5" stroke="rgba(58,42,31,.78)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
 
-        <!-- pocket front -->
         <div class="env-pocket" aria-hidden="true"></div>
 
-        <!-- CARD slides out -->
         <div class="cardWrap" id="cardWrap" role="dialog" aria-modal="true" aria-label="Thiệp mời">
           <button class="closeBtn" type="button" onclick="closeEnvelope()" aria-label="Đóng thiệp">×</button>
 
@@ -520,7 +511,11 @@
                   <div class="leftCol">
                     <div class="photo-frame">
                       <div class="photo">
-                        <img src="https://i.postimg.cc/zBXNdHfz/489281397-1304542471178308-1599223331279466639-n.jpg" alt="Thiếu Tướng Mai Xuân Tần">
+                        <img
+                          src="https://i.postimg.cc/zBXNdHfz/489281397-1304542471178308-1599223331279466639-n.jpg"
+                          alt="Thiếu Tướng Mai Xuân Tần"
+                          loading="lazy"
+                        >
                       </div>
                     </div>
 
@@ -547,43 +542,56 @@
                     </div>
 
                     <div class="note">
-                     Ông / Bố kính yêu của chúng tôi <span class="strong"Mai Xuân Tần</span> .
-                     Nhân ngày giỗ đầu của Ông / Bố Mai Xuân Tần, gia đình chúng tôi trân trọng kính mời quý thân bằng quyến thuộc, bà con, bạn hữu đến dự lễ giỗ và dùng bữa cơm thân mật, cùng gia đình tưởng nhớ đến Ông / Bố chúng tôi.
+                      Ông/Bố kính yêu của chúng tôi: <span class="strong">Mai Xuân Tần</span>.<br>
+                      Nhân ngày giỗ đầu của Ông/Bố, gia đình chúng tôi trân trọng kính mời quý thân bằng quyến thuộc,
+                      bà con, bạn hữu đến dự lễ giỗ và dùng bữa cơm thân mật, cùng gia đình tưởng nhớ đến Ông/Bố.
                     </div>
 
                     <div class="info">
                       <div>
                         <div class="label">THỜI GIAN</div>
-                        <div class="value">11:00 Trưa - Ngày 18 tháng 01 năm 2026</div>
+                        <div class="value">11:00 • Ngày 18 tháng 01 năm 2026</div>
                       </div>
                       <div style="margin-top:12px">
                         <div class="label">ĐỊA ĐIỂM</div>
-                        <div class="value">Nhà hàng Biển Dương 6, 205 Cách Mạng Tháng Tám, Phường Xuân Hòa, TP Hồ Chí Minh.</div>
+                        <div class="value">Nhà hàng Biển Dương 6, 205 Cách Mạng Tháng Tám, Phường Xuân Hòa, TP. Hồ Chí Minh.</div>
                       </div>
                     </div>
 
                     <div class="note">
-                      Sự hiện diện của quý vị là niềm an ủi và động viên lớn đối với gia đình chúng tôi.<br><br>
-                      Kính mong quý vị bớt chút thời gian đến chung giỗ, cùng gia đình dùng bữa cơm tưởng niệm trong không khí ấm cúng, nghĩa tình.
-<strong>Gia đình đồng kính mời</strong>
+                      Sự hiện diện của quý vị là niềm an ủi và nghĩa tình lớn đối với gia đình chúng tôi.<br><br>
+                      Kính mong quý vị bớt chút thời gian đến chung giỗ và dùng bữa cơm tưởng niệm trong không khí ấm cúng.<br>
+                      <span class="strong">Gia đình đồng kính mời</span>
                     </div>
 
                     <!-- RSVP -->
                     <div class="rsvpBox">
                       <div class="label">XÁC NHẬN THAM DỰ</div>
-                      <input id="guestName" class="rsvpInput" placeholder="Họ và tên">
 
                       <iframe name="hidden_iframe" style="display:none"></iframe>
-                      <form id="rsvpForm"
+
+                      <form
+                        id="rsvpForm"
                         action="https://docs.google.com/forms/d/e/1FAIpQLSeAbEEMP7dOkfBvpq9N7Kt3Z7NTFxxC3UYFzN2UIViH9GNDXA/formResponse"
-                        method="POST" target="hidden_iframe">
+                        method="POST"
+                        target="hidden_iframe"
+                        onsubmit="return false;"
+                      >
+                        <input
+                          id="guestName"
+                          class="rsvpInput"
+                          type="text"
+                          placeholder="Họ và tên"
+                          autocomplete="name"
+                        >
+
                         <input type="hidden" name="entry.2035054770" id="f_name">
                         <input type="hidden" name="entry.1484132997" id="f_attend">
                       </form>
 
                       <div class="btnRow">
-                        <button type="button" class="btnAttend" onclick="submitRSVP(event,'Tham dự')">THAM DỰ</button>
-                        <button type="button" class="btnDecline" onclick="submitRSVP(event,'Không tham dự')">KHÔNG THAM DỰ</button>
+                        <button type="button" class="btnAttend" onclick="submitRSVP('Tham dự')">THAM DỰ</button>
+                        <button type="button" class="btnDecline" onclick="submitRSVP('Không tham dự')">KHÔNG THAM DỰ</button>
                       </div>
 
                       <div class="rsvpMsg" id="rsvpMsg"></div>
@@ -600,7 +608,6 @@
         </div>
       </div>
 
-      <!-- Backdrop right after envelope -->
       <div class="backdrop" id="backdrop" onclick="closeEnvelope()" aria-hidden="true"></div>
 
     </div>
@@ -608,6 +615,7 @@
 
   <script>
     const env = document.getElementById('env');
+    const nameInput = document.getElementById('guestName');
 
     function openEnvelope(){
       env.classList.add('open');
@@ -619,20 +627,30 @@
       setTimeout(()=>{ window.scrollTo({top:0, behavior:'smooth'}); }, 60);
     }
 
-    function submitRSVP(e, choice){
-      if(e) e.preventDefault();
-      const name = document.getElementById('guestName').value.trim();
+    function submitRSVP(choice){
+      const name = (nameInput?.value || '').trim();
       if(!name){ alert('Vui lòng nhập Họ và tên'); return; }
+
       document.getElementById('f_name').value = name;
       document.getElementById('f_attend').value = choice;
+
       document.getElementById('rsvpForm').submit();
+
       const msg = document.getElementById('rsvpMsg');
       msg.textContent = `Gia đình đã ghi nhận: ${choice}. Xin chân thành cảm ơn.`;
       msg.classList.add('show');
     }
 
+    // Enter trong input: không mở phong bì, không submit form
+    nameInput?.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter') e.preventDefault();
+    });
+
+    // Phím tắt: chỉ hoạt động khi KHÔNG đang gõ trong input
     window.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter' || e.key === ' '){
+      const typing = document.activeElement === nameInput;
+
+      if(!typing && (e.key === 'Enter' || e.key === ' ')){
         if(!env.classList.contains('open')) openEnvelope();
       }
       if(e.key === 'Escape'){
