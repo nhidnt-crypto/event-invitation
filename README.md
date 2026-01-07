@@ -35,7 +35,6 @@
       overflow-x:hidden;
     }
 
-    /* ====== STAGE ====== */
     .stage{
       min-height:100vh;
       display:flex;
@@ -58,10 +57,7 @@
       height:440px;
       border-radius:20px;
 
-      /* ✅ FIX: remove filter (creates stacking context & causes overlay bug) */
-      filter:none;
-
-      /* ✅ keep envelope above backdrop */
+      filter:none;         /* FIX stacking bug */
       z-index:20;
     }
     .envelope.open{ z-index:60; }
@@ -74,7 +70,6 @@
       border:1px solid var(--envStroke);
       overflow:hidden;
 
-      /* ✅ FIX: move shadow here instead of filter */
       box-shadow:0 24px 50px var(--shadow);
     }
     .env-base::before{
@@ -86,75 +81,62 @@
       pointer-events:none;
     }
 
-    /* ===== Card preview (thò ra) ===== */
-    .card-peek{
+    /* ====== COVER TEXT on envelope (FIX: not hidden by flap) ====== */
+    .coverText{
       position:absolute;
       left:50%;
-      top:34px;
-      transform:translateX(-50%);
-      width:min(720px, calc(100% - 70px));
-      height:250px;
-      border-radius:16px;
-      background:linear-gradient(180deg,#fffdfb 0%, #fbf8f4 100%);
-      border:1px solid rgba(58,42,31,.18);
-      box-shadow:0 18px 40px rgba(0,0,0,.10);
-      z-index:2; /* dưới flap, trên nền */
-      overflow:hidden;
-    }
-
-    .card-peek::before{
-      content:"";
-      position:absolute;
-      inset:14px;
-      border-radius:12px;
-      border:1px solid rgba(58,42,31,.14);
-      pointer-events:none;
-    }
-
-    .peekText{
-      position:absolute;
-      inset:0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      top:46%;
+      transform:translate(-50%,-50%);
       text-align:center;
-      padding:22px 18px;
+      width:min(560px, calc(100% - 70px));
+      padding:18px 16px;
+      border-radius:16px;
+      background:rgba(255,255,255,.55);
+      border:1px solid rgba(58,42,31,.18);
+      box-shadow:0 10px 26px rgba(0,0,0,.08);
+
+      z-index:12; /* ✅ ABOVE flap (6) and pocket (5) */
+      pointer-events:none; /* click passes through */
+    }
+    .coverText .a1{
+      font-size:28px;
+      font-weight:700;
+      letter-spacing:.03em;
       color:var(--wood-dark);
     }
-    .peekText .t1{
-      font-size:12px;
-      letter-spacing:.22em;
-      color:var(--wood-light);
+    .coverText .a2{
+      margin-top:8px;
+      font-size:16px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:#6b5442;
+    }
+    .coverText .a3{
+      margin-top:6px;
+      font-size:22px;
+      font-weight:700;
+      letter-spacing:.04em;
+      color:var(--wood-dark);
       text-transform:uppercase;
     }
-    .peekText .t2{
-      margin:12px 0 6px;
-      font-size:34px;
-      font-weight:700;
-      letter-spacing:.02em;
-    }
-    .peekText .t3{
-      font-size:15px;
-      color:#5a4637;
-      line-height:1.65;
-    }
-    .peekText .line{
-      width:120px;
+    .coverText .line{
+      width:140px;
       height:2px;
       background:linear-gradient(90deg,transparent,var(--wood),transparent);
-      margin:14px auto 12px;
+      margin:14px auto 10px;
+      opacity:.9;
     }
-    .peekText .t4{
-      font-size:15px;
-      letter-spacing:.08em;
-      color:#6b5442;
+    .coverText .openHint{
+      font-size:12px;
+      letter-spacing:.18em;
       text-transform:uppercase;
+      color:rgba(58,42,31,.70);
     }
-    .peekText .t5{
-      margin-top:6px;
-      font-size:20px;
-      font-weight:700;
-      color:var(--wood-dark);
+
+    .open .coverText{
+      opacity:0;
+      transform:translate(-50%,-50%) scale(.98);
+      transition:opacity 180ms ease, transform 180ms ease;
     }
 
     /* Pocket (front) */
@@ -185,33 +167,29 @@
       backface-visibility:hidden;
     }
 
-    /* Seal */
+    /* Seal button (no text on top) */
     .seal{
       position:absolute;
       left:50%;
-      top:56%;
+      top:67%;
       transform:translate(-50%,-50%);
-      width:64px;
-      height:64px;
-      border-radius:18px;
-      background:rgba(255,255,255,.55);
+      width:56px;
+      height:56px;
+      border-radius:16px;
+      background:rgba(255,255,255,.62);
       border:1px solid rgba(58,42,31,.20);
       display:flex;
       align-items:center;
       justify-content:center;
-      z-index:7;
+      z-index:11; /* below coverText (12), still above flap */
       box-shadow:0 10px 24px rgba(0,0,0,.10);
       cursor:pointer;
     }
-    .seal .sealText{
-      font-size:11px;
-      letter-spacing:.18em;
-      color:rgba(58,42,31,.70);
-      text-transform:uppercase;
-      text-align:center;
-      line-height:1.2;
-      padding:0 6px;
-      user-select:none;
+    .seal svg{ display:block; opacity:.75; }
+    .open .seal{
+      opacity:0;
+      transition:opacity 220ms ease;
+      pointer-events:none;
     }
 
     /* Click anywhere closed */
@@ -232,8 +210,6 @@
       opacity:0;
       pointer-events:none;
       transition:opacity 250ms ease;
-
-      /* ✅ FIX: must be below envelope/card */
       z-index:10;
     }
     .open + .backdrop{
@@ -248,35 +224,19 @@
       top:26px;
       transform:translateX(-50%) translateY(240px) scale(.985);
       width:min(980px, 100%);
-      z-index:40; /* above backdrop */
+      z-index:40;
       transition: transform 950ms cubic-bezier(.2,.85,.2,1), opacity 500ms ease;
       opacity:0;
       pointer-events:none;
     }
-
     .open .cardWrap{
       transform:translateX(-50%) translateY(-12px) scale(1);
       opacity:1;
       pointer-events:auto;
     }
+    .open .env-flap{ transform: rotateX(165deg); }
 
-    .open .env-flap{
-      transform: rotateX(165deg);
-    }
-
-    .open .seal{
-      opacity:0;
-      transition:opacity 250ms ease;
-      pointer-events:none;
-    }
-
-    /* Khi mở: ẩn card preview thò ra để không bị trùng */
-    .open .card-peek{
-      opacity:0;
-      transition:opacity 220ms ease;
-    }
-
-    /* ====== CLOSE BUTTON: only shows after open ====== */
+    /* Close button */
     .closeBtn{
       position:absolute;
       top:-14px;
@@ -298,7 +258,7 @@
     }
     .closeBtn:active{ transform:translateY(1px); }
 
-    /* ====== YOUR ORIGINAL CARD CSS ====== */
+    /* ====== CARD CONTENT ====== */
     .wrap{
       min-height:unset;
       display:flex;
@@ -502,13 +462,14 @@
     @media(max-width:860px){
       .grid{ grid-template-columns:1fr; }
       .envelope{ height:480px; }
-      .card-peek{ width:calc(100% - 44px); height:240px; top:30px; }
-      .peekText .t2{ font-size:30px; }
+      .coverText{ top:45%; width:calc(100% - 44px); }
+      .coverText .a1{ font-size:26px; }
       .closeBtn{ top:-10px; right:-10px; }
+      .seal{ top:69%; }
     }
 
     @media (prefers-reduced-motion: reduce){
-      .env-flap, .cardWrap, .card-peek, .backdrop{ transition:none !important; }
+      .env-flap, .cardWrap, .backdrop{ transition:none !important; }
     }
   </style>
 </head>
@@ -520,18 +481,13 @@
       <div class="envelope" id="env">
         <div class="env-base"></div>
 
-        <!-- card preview peeking out -->
-        <div class="card-peek" aria-hidden="true">
-          <div class="peekText">
-            <div>
-              <div class="t1">TRÂN TRỌNG KÍNH MỜI</div>
-              <div class="t2">LỄ GIỖ 1 NĂM</div>
-              <div class="t3">Tưởng niệm &amp; tri ân</div>
-              <div class="line"></div>
-              <div class="t4">THIẾU TƯỚNG</div>
-              <div class="t5">MAI XUÂÂN TẦN</div>
-            </div>
-          </div>
+        <!-- ✅ Outside envelope text (NOT hidden by flap) -->
+        <div class="coverText" aria-hidden="true">
+          <div class="a1">Lễ Giỗ 1 Năm</div>
+          <div class="a2">Thiếu Tướng</div>
+          <div class="a3">Mai Xuân Tần</div>
+          <div class="line"></div>
+          <div class="openHint">MỞ THIỆP</div>
         </div>
 
         <!-- click anywhere on closed envelope -->
@@ -540,9 +496,11 @@
         <!-- flap -->
         <div class="env-flap" aria-hidden="true"></div>
 
-        <!-- seal -->
-        <div class="seal" aria-hidden="true" onclick="openEnvelope()">
-          <div class="sealText">MỞ<br>THIỆP</div>
+        <!-- seal icon button -->
+        <div class="seal" aria-hidden="true" onclick="openEnvelope()" title="Mở thiệp">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7 10l5 5 5-5" stroke="rgba(58,42,31,.78)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
 
         <!-- pocket front -->
@@ -645,7 +603,7 @@
         </div>
       </div>
 
-      <!-- Backdrop must be right after envelope for .open + .backdrop -->
+      <!-- Backdrop right after envelope -->
       <div class="backdrop" id="backdrop" onclick="closeEnvelope()" aria-hidden="true"></div>
 
     </div>
