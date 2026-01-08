@@ -657,6 +657,17 @@
     @media (prefers-reduced-motion: reduce){
       .env-flap, .cardWrap, .backdrop{ transition:none !important; }
     }
+.btnAttend:disabled,
+.btnDecline:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+.countInput:disabled{
+  opacity:.75;
+  cursor:not-allowed;
+}
+
   </style>
 </head>
 
@@ -830,110 +841,128 @@
     </div>
   </div>
 
-  <script>
-    const env = document.getElementById('env');
-    const nameInput = document.getElementById('guestName');
-    const countInput = document.getElementById('guestCount');
+<script>
+  const envEl = document.getElementById('env');
+  const nameInput = document.getElementById('guestName');
+  const countInput = document.getElementById('guestCount');
 
-    // Modal
-    const modal = document.getElementById('rsvpModal');
-    const modalMsg = document.getElementById('rsvpModalMsg');
+  const modal = document.getElementById('rsvpModal');
+  const modalMsg = document.getElementById('rsvpModalMsg');
 
-    function showRSVPModal(text){
-      modalMsg.textContent = text;
-      modal.classList.add('show');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
+  // ✅ submit lock: chỉ chặn trong phiên hiện tại; refresh sẽ reset
+  let isSubmitting = false;
+
+  function showRSVPModal(text){
+    modalMsg.textContent = text;
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function hideRSVPModal(){
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+
+    // ✅ OPTIONAL: đóng popup là đóng luôn thiệp
+    // closeEnvelope();
+  }
+
+  function openEnvelope(){
+    envEl.classList.add('open');
+    setTimeout(()=>{ window.scrollTo({top:0, behavior:'smooth'}); }, 60);
+  }
+
+  function closeEnvelope(){
+    envEl.classList.remove('open');
+    setTimeout(()=>{ window.scrollTo({top:0, behavior:'smooth'}); }, 60);
+  }
+
+  function clampCount(v){
+    const n = parseInt(v || '1', 10);
+    if(!Number.isFinite(n) || n < 1) return 1;
+    if(n > 20) return 20;
+    return n;
+  }
+
+  function syncCountButtons(){
+    const v = clampCount(countInput?.value);
+    if(countInput) countInput.value = v;
+
+    const btns = document.querySelectorAll('.countBtn');
+    if(btns && btns.length){
+      btns[0].disabled = (v <= 1) || isSubmitting; // "-"
+      btns[1].disabled = isSubmitting;            // "+"
     }
+  }
 
-    function hideRSVPModal(){
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    function openEnvelope(){
-      env.classList.add('open');
-      setTimeout(()=>{ window.scrollTo({top:0, behavior:'smooth'}); }, 60);
-    }
-
-    function closeEnvelope(){
-      env.classList.remove('open');
-      setTimeout(()=>{ window.scrollTo({top:0, behavior:'smooth'}); }, 60);
-    }
-
-    function clampCount(v){
-      const n = parseInt(v || '1', 10);
-      if(!Number.isFinite(n) || n < 1) return 1;
-      if(n > 20) return 20; // đổi giới hạn nếu muốn
-      return n;
-    }
-
-    function syncCountButtons(){
-      const v = clampCount(countInput?.value);
-      if(countInput) countInput.value = v;
-
-      const btns = document.querySelectorAll('.countBtn');
-      if(btns && btns.length){
-        btns[0].disabled = (v <= 1);
-      }
-    }
-
-    function chgCount(delta){
-      if(!countInput) return;
-      const v = clampCount(countInput.value);
-      countInput.value = clampCount(v + delta);
-      syncCountButtons();
-    }
-
-    function submitRSVP(choice){
-      const name = (nameInput?.value || '').trim();
-      if(!name){ alert('Vui lòng nhập Họ và tên'); return; }
-
-      const count = clampCount(countInput?.value);
-
-      document.getElementById('f_name').value = name;
-      document.getElementById('f_attend').value = choice;
-
-      if(choice === 'Tham dự'){
-        document.getElementById('f_count').value = String(count);
-      }else{
-        document.getElementById('f_count').value = '0';
-      }
-
-      document.getElementById('rsvpForm').submit();
-
-      const text = (choice === 'Tham dự')
-        ? `Gia đình đã ghi nhận: ${choice} (${count} người). Xin chân thành cảm ơn.`
-        : `Gia đình đã ghi nhận: ${choice}. Xin chân thành cảm ơn.`;
-
-      showRSVPModal(text);
-    }
-
-    nameInput?.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter') e.preventDefault();
-    });
-
-    countInput?.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter') e.preventDefault();
-    });
-    countInput?.addEventListener('input', syncCountButtons);
-    countInput?.addEventListener('blur', syncCountButtons);
-
-    window.addEventListener('keydown', (e)=>{
-      const typing = document.activeElement === nameInput || document.activeElement === countInput;
-
-      if(!typing && (e.key === 'Enter' || e.key === ' ')){
-        if(!env.classList.contains('open')) openEnvelope();
-      }
-
-      if(e.key === 'Escape'){
-        if(modal?.classList.contains('show')) { hideRSVPModal(); return; }
-        if(env.classList.contains('open')) closeEnvelope();
-      }
-    });
-
+  // stepper uses inline onclick chgCount()
+  window.chgCount = function(delta){
+    if(!countInput || isSubmitting) return;
+    const v = clampCount(countInput.value);
+    countInput.value = clampCount(v + delta);
     syncCountButtons();
-  </script>
-</body>
-</html>
+  }
+
+  function lockRSVPUI(){
+    nameInput?.setAttribute('disabled','disabled');
+    countInput?.setAttribute('disabled','disabled');
+
+    document.querySelectorAll('.countBtn').forEach(b=>{
+      b.setAttribute('disabled','disabled');
+    });
+
+    document.querySelectorAll('.btnAttend,.btnDecline').forEach(b=>{
+      b.setAttribute('disabled','disabled');
+    });
+  }
+
+  // inline onclick submitRSVP('...')
+  window.submitRSVP = function(choice){
+    if(isSubmitting) return;
+
+    const name = (nameInput?.value || '').trim();
+    if(!name){ alert('Vui lòng nhập Họ và tên'); return; }
+
+    const count = clampCount(countInput?.value);
+
+    document.getElementById('f_name').value = name;
+    document.getElementById('f_attend').value = choice;
+    document.getElementById('f_count').value = (choice === 'Tham dự') ? String(count) : '0';
+
+    isSubmitting = true;
+    lockRSVPUI();
+    syncCountButtons();
+
+    document.getElementById('rsvpForm').submit();
+
+    const text = (choice === 'Tham dự')
+      ? `Gia đình đã ghi nhận: ${choice} (${count} người). Xin chân thành cảm ơn.`
+      : `Gia đình đã ghi nhận: ${choice}. Xin chân thành cảm ơn.`;
+
+    showRSVPModal(text);
+  }
+
+  // prevent Enter submit
+  nameInput?.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') e.preventDefault(); });
+  countInput?.addEventListener('keydown', (e)=>{ if(e.key === 'Enter') e.preventDefault(); });
+
+  countInput?.addEventListener('input', syncCountButtons);
+  countInput?.addEventListener('blur', syncCountButtons);
+
+  window.addEventListener('keydown', (e)=>{
+    const typing = document.activeElement === nameInput || document.activeElement === countInput;
+
+    if(!typing && (e.key === 'Enter' || e.key === ' ')){
+      if(!envEl.classList.contains('open')) openEnvelope();
+    }
+
+    if(e.key === 'Escape'){
+      if(modal?.classList.contains('show')) { hideRSVPModal(); return; }
+      if(envEl.classList.contains('open')) closeEnvelope();
+    }
+  });
+
+  // init
+  syncCountButtons();
+</script>
